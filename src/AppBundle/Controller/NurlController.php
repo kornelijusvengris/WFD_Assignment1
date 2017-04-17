@@ -2,18 +2,14 @@
 
 namespace AppBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-
 use AppBundle\Entity\Nurl;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Nurl controller.
@@ -24,122 +20,122 @@ use AppBundle\Entity\Nurl;
 class NurlController extends Controller
 {
     /**
-     * Lists all recipe entities.
+     * Lists all nurl entities.
      *
-     * @Route("/list", name="nurl_list")
+     * @Route("/", name="nurl_index")
      * @Method("GET")
      */
-    public function listAction(Request $request)
+    public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
         $nurls = $em->getRepository('AppBundle:Nurl')->findAll();
 
-        return $this->render('NURLs/list.html.twig', array('nurls' => $nurls,));
+        return $this->render('nurl/index.html.twig', array(
+            'nurls' => $nurls,
+        ));
     }
 
     /**
-     * Creates a new recipe entity.
+     * Creates a new nurl entity.
      *
-     * @Route("/new", name="new_nurl")
+     * @Route("/new", name="nurl_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Nurl $nurl)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $em->persist($nurl);
-
-        $em->flush();
-
-        return $this->redirectToRoute('nurl_list');
-    }
-
-    /**
-     *
-     * @Route("/delete/{id}", name="delete_nurl")
-     * @Method("DELETE")
-     */
-    public function deleteAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $nurlRepository = $this->getDoctrine()->getRepository('AppBundle:Nurl');
-
-        $nurl = $nurlRepository->find($id);
-
-        $em->remove($nurl);
-
-        $em->flush();
-
-        return new Response('Deleted NURL with id ' . $id);
-    }
-
-    /**
-     *
-     * @Route("/update/{id}", name="edit_nurl")
-     * @Method({"GET", "POST"})
-     */
-    public function updateAction($id, $newTitle)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $nurl = $em->getRepository('AppBundle:Nurl')->find($id);
-
-        if (!$nurl)
-        {
-            throw $this->createNotFoundException('No NURL found for id ' . $id);
-        }
-
-        $nurl->setTitle($newTitle);
-
-        $em->flush();
-
-        return $this->redirectToRoute('homepage');
-    }
-
-    /**
-     * @Route("/nurls/new", name="nurls_new_form")
-     */
-    public function newFormAction(Request $request)
+    public function newAction(Request $request)
     {
         $nurl = new Nurl();
-
-        $form = $this->createFormBuilder($nurl)
-            ->add('title', TextType::class)
-            ->add('save', SubmitType::class, array('label' => 'Create NURL'))
-            ->getForm();
-
+        $form = $this->createForm('AppBundle\Form\NurlType', $nurl);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $nurl = $form->getData();
-            return $this->newAction($nurl);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($nurl);
+            $em->flush();
+
+            return $this->redirectToRoute('nurl_show', array('id' => $nurl->getId()));
         }
 
-        $argsArray = [
+        return $this->render('nurl/new.html.twig', array(
+            'nurl' => $nurl,
             'form' => $form->createView(),
-        ];
-
-        $templateName = 'nurls/new';
-        return $this->render($templateName . '.html.twig', $argsArray);
+        ));
     }
 
     /**
-     * @Route("/nurls/processNewForm", name="nurls_process_new_form")
+     * Finds and displays a nurl entity.
+     *
+     * @Route("/{id}", name="nurl_show")
+     * @Method("GET")
      */
-    public function processNewFormAction(Request $request)
+    public function showAction(Nurl $nurl)
     {
-        $title = $request->request->get('title');
+        $deleteForm = $this->createDeleteForm($nurl);
 
-        if(empty($title)) {
-            $this->addFlash(
-                'error',
-                'nurl name cannot be an empty string'
-            );
+        return $this->render('nurl/show.html.twig', array(
+            'nurl' => $nurl,
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
 
-            return $this->newFormAction($request);
+    /**
+     * Displays a form to edit an existing nurl entity.
+     *
+     * @Route("/{id}/edit", name="nurl_edit")
+     * @Method({"GET", "POST"})
+     */
+    public function editAction(Request $request, Nurl $nurl)
+    {
+        $deleteForm = $this->createDeleteForm($nurl);
+        $editForm = $this->createForm('AppBundle\Form\NurlType', $nurl);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('nurl_edit', array('id' => $nurl->getId()));
         }
 
-        return $this->newAction($title);
+        return $this->render('nurl/edit.html.twig', array(
+            'nurl' => $nurl,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+    /**
+     * Deletes a nurl entity.
+     *
+     * @Route("/{id}", name="nurl_delete")
+     * @Method("DELETE")
+     */
+    public function deleteAction(Request $request, Nurl $nurl)
+    {
+        $form = $this->createDeleteForm($nurl);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($nurl);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('nurl_index');
+    }
+
+    /**
+     * Creates a form to delete a nurl entity.
+     *
+     * @param Nurl $nurl The nurl entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteForm(Nurl $nurl)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('nurl_delete', array('id' => $nurl->getId())))
+            ->setMethod('DELETE')
+            ->getForm()
+        ;
     }
 }
