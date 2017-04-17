@@ -12,31 +12,33 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use AppBundle\Entity\Nurl;
 
 /**
- * Class NurlController
+ * Nurl controller.
  *
  * @Route("nurl")
- * @Security("has_role('ROLE_USER')")
+ * @Security("has_role('ROLE_ADMIN')")
  */
 class NurlController extends Controller
 {
     /**
-     * @Route("/nurls/list")
+     * Lists all recipe entities.
+     *
+     * @Route("/list", name="nurl_list")
+     * @Method("GET")
      */
     public function listAction(Request $request)
     {
-        $nurlRepository = $this->getDoctrine()->getRepository('AppBundle:Nurl');
-        $nurls = $nurlRepository->findAll();
+        $em = $this->getDoctrine()->getManager();
 
-        $argsArray = [
-            'nurls' => $nurls
-        ];
+        $nurls = $em->getRepository('AppBundle:Nurl')->findAll();
 
-        $templateName = 'nurls/list';
-        return $this->render($templateName . '.html.twig', $argsArray);
+        return $this->render('NURLs/list.html.twig', array('nurls' => $nurls,));
     }
 
     /**
-     * @Route("/nurls/new/{title}")
+     * Creates a new recipe entity.
+     *
+     * @Route("/new", name="new_nurl")
+     * @Method({"GET", "POST"})
      */
     public function newAction($title)
     {
@@ -53,7 +55,9 @@ class NurlController extends Controller
     }
 
     /**
-     * @Route("/nurls/delete/{id}")
+     *
+     * @Route("/delete/{id}", name="delete_nurl")
+     * @Method("DELETE")
      */
     public function deleteAction($id)
     {
@@ -70,7 +74,9 @@ class NurlController extends Controller
     }
 
     /**
-     * @Route("/nurls/update/{id}/{newTitle}")
+     *
+     * @Route("/update/{id}", name="edit_nurl")
+     * @Method({"GET", "POST"})
      */
     public function updateAction($id, $newTitle)
     {
