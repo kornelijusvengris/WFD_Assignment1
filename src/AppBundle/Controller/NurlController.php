@@ -6,9 +6,17 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 use AppBundle\Entity\Nurl;
 
+/**
+ * Class NurlController
+ *
+ * @Route("nurl")
+ * @Security("has_role('ROLE_USER')")
+ */
 class NurlController extends Controller
 {
     /**

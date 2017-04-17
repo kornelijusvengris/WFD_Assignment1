@@ -4,12 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Class Nurl
- *
- * @ORM\Entity
- * @ORM\Table(name="nurls")
- */
+
 class Nurl
 {
     /**
