@@ -6,8 +6,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 use AppBundle\Entity\Nurl;
 
@@ -40,18 +44,15 @@ class NurlController extends Controller
      * @Route("/new", name="new_nurl")
      * @Method({"GET", "POST"})
      */
-    public function newAction($title)
+    public function newAction(Nurl $nurl)
     {
-        $nurl = new Nurl();
-        $nurl->setTitle($title);
-
         $em = $this->getDoctrine()->getManager();
 
         $em->persist($nurl);
 
         $em->flush();
 
-        return new Response('Created new NURL with id ' . $nurl->getId());
+        return $this->redirectToRoute('nurl_list');
     }
 
     /**
@@ -94,5 +95,51 @@ class NurlController extends Controller
         $em->flush();
 
         return $this->redirectToRoute('homepage');
+    }
+
+    /**
+     * @Route("/nurls/new", name="nurls_new_form")
+     */
+    public function newFormAction(Request $request)
+    {
+        $nurl = new Nurl();
+
+        $form = $this->createFormBuilder($nurl)
+            ->add('title', TextType::class)
+            ->add('save', SubmitType::class, array('label' => 'Create NURL'))
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $nurl = $form->getData();
+            return $this->newAction($nurl);
+        }
+
+        $argsArray = [
+            'form' => $form->createView(),
+        ];
+
+        $templateName = 'nurls/new';
+        return $this->render($templateName . '.html.twig', $argsArray);
+    }
+
+    /**
+     * @Route("/nurls/processNewForm", name="nurls_process_new_form")
+     */
+    public function processNewFormAction(Request $request)
+    {
+        $title = $request->request->get('title');
+
+        if(empty($title)) {
+            $this->addFlash(
+                'error',
+                'nurl name cannot be an empty string'
+            );
+
+            return $this->newFormAction($request);
+        }
+
+        return $this->newAction($title);
     }
 }
