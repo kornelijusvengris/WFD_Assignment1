@@ -18,12 +18,12 @@
                 <td>{{ user.password }}</td>
             </tr>
             <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
+                <th>Public</th>
+                <td>{% if user.public %}Yes{% else %}No{% endif %}</td>
             </tr>
             <tr>
-                <th>Isfrozen</th>
-                <td>{% if user.isFrozen %}Yes{% else %}No{% endif %}</td>
+                <th>Frozen</th>
+                <td>{% if user.frozen %}Yes{% else %}No{% endif %}</td>
             </tr>
             <tr>
                 <th>Roles</th>

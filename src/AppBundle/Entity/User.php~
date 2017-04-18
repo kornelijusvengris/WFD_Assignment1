@@ -31,14 +31,14 @@ class User implements UserInterface, \Serializable
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=60, unique=true)
+     * @ORM\Column(name="public", type="boolean")
      */
-    private $email;
+    private $public;
 
     /**
-     * @ORM\Column(name="is_active", type="boolean")
+     * @ORM\Column(name="frozen", type="boolean")
      */
-    private $isFrozen;
+    private $frozen;
 
     public function __construct()
     {
@@ -62,9 +62,29 @@ class User implements UserInterface, \Serializable
         return $this->password;
     }
 
+    /**
+     * @ORM\Column(type="json_array")
+     */
+    private $roles = [];
+
     public function getRoles()
     {
-        return array('ROLE_USER');
+        $roles = $this->roles;
+
+        return array_unique($roles);
+    }
+
+    /**
+     * Set roles
+     *
+     * @param array $roles
+     *
+     * @return User
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+        return $this;
     }
 
     public function eraseCredentials()

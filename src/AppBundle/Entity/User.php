@@ -31,14 +31,14 @@ class User implements UserInterface, \Serializable
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=60, unique=true)
+     * @ORM\Column(name="public", type="boolean")
      */
-    private $email;
+    private $public;
 
     /**
-     * @ORM\Column(name="is_active", type="boolean")
+     * @ORM\Column(name="frozen", type="boolean")
      */
-    private $isFrozen;
+    private $frozen;
 
     public function __construct()
     {
@@ -150,50 +150,50 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Set email
+     * Set public
      *
-     * @param string $email
+     * @param boolean $public
      *
      * @return User
      */
-    public function setEmail($email)
+    public function setPublic($public)
     {
-        $this->email = $email;
+        $this->public = $public;
 
         return $this;
     }
 
     /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set isFrozen
-     *
-     * @param boolean $isFrozen
-     *
-     * @return User
-     */
-    public function setIsFrozen($isFrozen)
-    {
-        $this->isFrozen = $isFrozen;
-
-        return $this;
-    }
-
-    /**
-     * Get isFrozen
+     * Get public
      *
      * @return boolean
      */
-    public function getIsFrozen()
+    public function getPublic()
     {
-        return $this->isFrozen;
+        return $this->public;
+    }
+
+    /**
+     * Set frozen
+     *
+     * @param boolean $frozen
+     *
+     * @return User
+     */
+    public function setFrozen($frozen)
+    {
+        $this->frozen = $frozen;
+
+        return $this;
+    }
+
+    /**
+     * Get frozen
+     *
+     * @return boolean
+     */
+    public function getFrozen()
+    {
+        return $this->frozen;
     }
 }

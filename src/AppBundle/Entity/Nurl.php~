@@ -23,4 +23,31 @@ class Nurl
      * @ORM\Column(type="string", length=100)
      */
     private $title;
+
+    /**
+     * @ORM\Column(name="content", type="string", length=255)
+     */
+    private $content;
+
+    /**
+     * @ORM\Column(name="summary", type="string", length=255)
+     */
+    private $summary;
+
+    /**
+     * @ORM\Column(name="public", type="boolean")
+     */
+    private $public;
+
+    /**
+     * @ORM\Column(name="frozen", type="boolean")
+     */
+    private $frozen;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="notes", type="string", length=255)
+     */
+    private $notes;
 }

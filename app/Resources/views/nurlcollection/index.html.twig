@@ -1,0 +1,39 @@
+{% extends '_base.html.twig' %}
+
+{% block body %}
+    <h1>Nurlcollections list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for nurlCollection in nurlCollections %}
+            <tr>
+                <td><a href="{{ path('nurlcollection_show', { 'id': nurlCollection.id }) }}">{{ nurlCollection.id }}</a></td>
+                <td>{{ nurlCollection.title }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('nurlcollection_show', { 'id': nurlCollection.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('nurlcollection_edit', { 'id': nurlCollection.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('nurlcollection_new') }}">Create a new nurlCollection</a>
+        </li>
+    </ul>
+{% endblock %}

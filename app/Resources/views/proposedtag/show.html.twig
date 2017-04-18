@@ -1,0 +1,36 @@
+{% extends '_base.html.twig' %}
+
+{% block body %}
+    <h1>Proposedtag</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ proposedTag.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ proposedTag.title }}</td>
+            </tr>
+            <tr>
+                <th>Votes</th>
+                <td>{{ proposedTag.votes }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('proposedtag_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('proposedtag_edit', { 'id': proposedTag.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

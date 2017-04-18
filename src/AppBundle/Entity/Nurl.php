@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class Nurl
  *
- * @ORM\Entity
  * @ORM\Table(name="nurls")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\NurlRepository")
  */
 class Nurl
 {
@@ -23,6 +23,33 @@ class Nurl
      * @ORM\Column(type="string", length=100)
      */
     private $title;
+
+    /**
+     * @ORM\Column(name="content", type="string", length=255)
+     */
+    private $content;
+
+    /**
+     * @ORM\Column(name="summary", type="string", length=255)
+     */
+    private $summary;
+
+    /**
+     * @ORM\Column(name="public", type="boolean")
+     */
+    private $public;
+
+    /**
+     * @ORM\Column(name="frozen", type="boolean")
+     */
+    private $frozen;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="notes", type="string", length=255)
+     */
+    private $notes;
 
     /**
      * Get id
@@ -56,5 +83,125 @@ class Nurl
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     *
+     * @return Nurl
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * Set summary
+     *
+     * @param string $summary
+     *
+     * @return Nurl
+     */
+    public function setSummary($summary)
+    {
+        $this->summary = $summary;
+
+        return $this;
+    }
+
+    /**
+     * Get summary
+     *
+     * @return string
+     */
+    public function getSummary()
+    {
+        return $this->summary;
+    }
+
+    /**
+     * Set public
+     *
+     * @param boolean $public
+     *
+     * @return Nurl
+     */
+    public function setPublic($public)
+    {
+        $this->public = $public;
+
+        return $this;
+    }
+
+    /**
+     * Get public
+     *
+     * @return boolean
+     */
+    public function getPublic()
+    {
+        return $this->public;
+    }
+
+    /**
+     * Set frozen
+     *
+     * @param boolean $frozen
+     *
+     * @return Nurl
+     */
+    public function setFrozen($frozen)
+    {
+        $this->frozen = $frozen;
+
+        return $this;
+    }
+
+    /**
+     * Get frozen
+     *
+     * @return boolean
+     */
+    public function getFrozen()
+    {
+        return $this->frozen;
+    }
+
+    /**
+     * Set notes
+     *
+     * @param string $notes
+     *
+     * @return Nurl
+     */
+    public function setNotes($notes)
+    {
+        $this->notes = $notes;
+
+        return $this;
+    }
+
+    /**
+     * Get notes
+     *
+     * @return string
+     */
+    public function getNotes()
+    {
+        return $this->notes;
     }
 }

@@ -13,6 +13,26 @@
                 <th>Title</th>
                 <td>{{ nurl.title }}</td>
             </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ nurl.content }}</td>
+            </tr>
+            <tr>
+                <th>Summary</th>
+                <td>{{ nurl.summary }}</td>
+            </tr>
+            <tr>
+                <th>Public</th>
+                <td>{% if nurl.public %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Frozen</th>
+                <td>{% if nurl.frozen %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Notes</th>
+                <td>{{ nurl.notes }}</td>
+            </tr>
         </tbody>
     </table>
 

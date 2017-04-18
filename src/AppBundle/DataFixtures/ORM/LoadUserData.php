@@ -20,9 +20,9 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
 
     public function load(ObjectManager $manager)
     {
-        $userAdmin = $this->createActiveUser('admin', 'admin@admin.com', 'admin', ['ROLE_ADMIN']);
-        $userModerator = $this->createActiveUser('moderator', 'moderator@moderator.com', 'moderator', ['ROLE_MOD']);
-        $userKornelijus = $this->createActiveUser('user', 'user@admin.com', 'user');
+        $userAdmin = $this->createActiveUser('admin', 'admin', ['ROLE_ADMIN']);
+        $userModerator = $this->createActiveUser('moderator', 'moderator', ['ROLE_MOD']);
+        $userKornelijus = $this->createActiveUser('user', 'user');
 
         $manager->persist($userAdmin);
         $manager->persist($userModerator);
@@ -31,13 +31,13 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
         $manager->flush();
     }
 
-    private function createActiveUser($username, $email, $plainPassword, $roles = ['ROLE_USER']):User
+    private function createActiveUser($username, $plainPassword, $roles = ['ROLE_USER']):User
     {
         $user = new User();
         $user->setUsername($username);
-        $user->setEmail($email);
         $user->setRoles($roles);
-        $user->setIsFrozen(false);
+        $user->setFrozen(false);
+        $user->setPublic(true);
 
         $encodedPassword = $this->encodePassword($user, $plainPassword);
         $user->setPassword($encodedPassword);

@@ -1,0 +1,31 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * PendingNurl
+ *
+ * @ORM\Table(name="pending_nurl")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\PendingNurlRepository")
+ */
+class PendingNurl
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="approved", type="boolean")
+     */
+    private $approved;
+}
+

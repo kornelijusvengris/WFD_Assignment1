@@ -8,6 +8,11 @@
             <tr>
                 <th>Id</th>
                 <th>Title</th>
+                <th>Content</th>
+                <th>Summary</th>
+                <th>Public</th>
+                <th>Frozen</th>
+                <th>Notes</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -16,6 +21,11 @@
             <tr>
                 <td><a href="{{ path('nurl_show', { 'id': nurl.id }) }}">{{ nurl.id }}</a></td>
                 <td>{{ nurl.title }}</td>
+                <td>{{ nurl.content }}</td>
+                <td>{{ nurl.summary }}</td>
+                <td>{% if nurl.public %}Yes{% else %}No{% endif %}</td>
+                <td>{% if nurl.frozen %}Yes{% else %}No{% endif %}</td>
+                <td>{{ nurl.notes }}</td>
                 <td>
                     <ul>
                         <li>
