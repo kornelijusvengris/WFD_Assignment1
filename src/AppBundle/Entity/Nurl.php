@@ -302,4 +302,9 @@ class Nurl
     {
         return $this->nurl_collection;
     }
+
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
 }
