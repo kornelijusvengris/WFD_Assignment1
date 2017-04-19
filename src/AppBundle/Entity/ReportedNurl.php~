@@ -34,5 +34,14 @@ class ReportedNurl
      * @ORM\Column(name="frozen", type="boolean", nullable=true)
      */
     private $frozen;
-}
 
+    //-----------------------------------------------------------------
+
+    /**
+     * @var int
+     *
+     * @ORM\ManyToOne(targetEntity="Nurl")
+     * @ORM\JoinColumn(name="nurl", referencedColumnName="id")
+     */
+    private $nurl;
+}

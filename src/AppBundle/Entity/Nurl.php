@@ -51,6 +51,32 @@ class Nurl
      */
     private $notes;
 
+    //--------------------------------------------------------------------
+
+    /**
+     * @var int
+     *
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="nurls")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     */
+    private $author_id;
+
+    /**
+     * @var int
+     *
+     * @ORM\ManyToOne(targetEntity="Tag", inversedBy="nurls")
+     * @ORM\JoinColumn(name="tag", referencedColumnName="id")
+     */
+    private $tag;
+
+    /**
+     * @var int
+     *
+     * @ORM\ManyToOne(targetEntity="NurlCollection", inversedBy="nurls")
+     * @ORM\JoinColumn(name="nurl_collection", referencedColumnName="id")
+     */
+    private $nurl_collection;
+
     /**
      * Get id
      *
@@ -203,5 +229,77 @@ class Nurl
     public function getNotes()
     {
         return $this->notes;
+    }
+
+    /**
+     * Set authorId
+     *
+     * @param \AppBundle\Entity\User $authorId
+     *
+     * @return Nurl
+     */
+    public function setAuthorId(\AppBundle\Entity\User $authorId = null)
+    {
+        $this->author_id = $authorId;
+
+        return $this;
+    }
+
+    /**
+     * Get authorId
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getAuthorId()
+    {
+        return $this->author_id;
+    }
+
+    /**
+     * Set tag
+     *
+     * @param \AppBundle\Entity\Tag $tag
+     *
+     * @return Nurl
+     */
+    public function setTag(\AppBundle\Entity\Tag $tag = null)
+    {
+        $this->tag = $tag;
+
+        return $this;
+    }
+
+    /**
+     * Get tag
+     *
+     * @return \AppBundle\Entity\Tag
+     */
+    public function getTag()
+    {
+        return $this->tag;
+    }
+
+    /**
+     * Set nurlCollection
+     *
+     * @param \AppBundle\Entity\NurlCollection $nurlCollection
+     *
+     * @return Nurl
+     */
+    public function setNurlCollection(\AppBundle\Entity\NurlCollection $nurlCollection = null)
+    {
+        $this->nurl_collection = $nurlCollection;
+
+        return $this;
+    }
+
+    /**
+     * Get nurlCollection
+     *
+     * @return \AppBundle\Entity\NurlCollection
+     */
+    public function getNurlCollection()
+    {
+        return $this->nurl_collection;
     }
 }

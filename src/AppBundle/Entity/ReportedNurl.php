@@ -35,6 +35,16 @@ class ReportedNurl
      */
     private $frozen;
 
+    //-----------------------------------------------------------------
+
+    /**
+     * @var int
+     *
+     * @ORM\ManyToOne(targetEntity="Nurl")
+     * @ORM\JoinColumn(name="nurl", referencedColumnName="id")
+     */
+    private $nurl;
+
     /**
      * Get id
      *
@@ -91,5 +101,29 @@ class ReportedNurl
     public function getFrozen()
     {
         return $this->frozen;
+    }
+
+    /**
+     * Set nurl
+     *
+     * @param \AppBundle\Entity\Nurl $nurl
+     *
+     * @return ReportedNurl
+     */
+    public function setNurl(\AppBundle\Entity\Nurl $nurl = null)
+    {
+        $this->nurl = $nurl;
+
+        return $this;
+    }
+
+    /**
+     * Get nurl
+     *
+     * @return \AppBundle\Entity\Nurl
+     */
+    public function getNurl()
+    {
+        return $this->nurl;
     }
 }

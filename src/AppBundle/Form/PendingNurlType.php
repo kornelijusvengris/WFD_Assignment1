@@ -13,7 +13,7 @@ class PendingNurlType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('approved');
+        $builder->add('approved')->add('nurl');
     }
     
     /**

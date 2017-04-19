@@ -40,6 +40,18 @@ class User implements UserInterface, \Serializable
      */
     private $frozen;
 
+    //=====================================================
+
+    /**
+     * @ORM\OneToMany(targetEntity="Nurl", mappedBy="author_id")
+     */
+    private $nurls;
+
+    /**
+     * @ORM\OneToMany(targetEntity="NurlCollection", mappedBy="owned_by")
+     */
+    private $collections;
+
     public function __construct()
     {
         $this->isActive = true;

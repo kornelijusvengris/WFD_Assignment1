@@ -3,20 +3,14 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Nurl;
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-
-use Symfony\Component\HttpFoundation\Request;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Nurl controller.
  *
  * @Route("nurl")
- * @Security("has_role('ROLE_ADMIN')")
  */
 class NurlController extends Controller
 {

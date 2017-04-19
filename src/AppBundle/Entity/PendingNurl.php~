@@ -27,5 +27,14 @@ class PendingNurl
      * @ORM\Column(name="approved", type="boolean")
      */
     private $approved;
-}
 
+    //-----------------------------------------------------------
+
+    /**
+     * @var int
+     *
+     * @ORM\ManyToOne(targetEntity="Nurl")
+     * @ORM\JoinColumn(name="nurl", referencedColumnName="id")
+     */
+    private $nurl;
+}

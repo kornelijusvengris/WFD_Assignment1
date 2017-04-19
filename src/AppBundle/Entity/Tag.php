@@ -33,6 +33,20 @@ class Tag
      */
     private $votes;
 
+    //====================================================================
+
+    /**
+     * @ORM\OneToMany(targetEntity="Nurl", mappedBy="tag")
+     */
+    private $nurls;
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->nurls = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
     /**
      * Get id
      *
@@ -89,5 +103,39 @@ class Tag
     public function getVotes()
     {
         return $this->votes;
+    }
+
+    /**
+     * Add nurl
+     *
+     * @param \AppBundle\Entity\Nurl $nurl
+     *
+     * @return Tag
+     */
+    public function addNurl(\AppBundle\Entity\Nurl $nurl)
+    {
+        $this->nurls[] = $nurl;
+
+        return $this;
+    }
+
+    /**
+     * Remove nurl
+     *
+     * @param \AppBundle\Entity\Nurl $nurl
+     */
+    public function removeNurl(\AppBundle\Entity\Nurl $nurl)
+    {
+        $this->nurls->removeElement($nurl);
+    }
+
+    /**
+     * Get nurls
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getNurls()
+    {
+        return $this->nurls;
     }
 }

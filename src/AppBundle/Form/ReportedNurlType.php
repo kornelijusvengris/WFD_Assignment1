@@ -13,7 +13,7 @@ class ReportedNurlType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('reason')->add('frozen');
+        $builder->add('reason')->add('frozen')->add('nurl');
     }
     
     /**

@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class Nurl
  *
- * @ORM\Entity
  * @ORM\Table(name="nurls")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\NurlRepository")
  */
 class Nurl
 {
@@ -50,4 +50,256 @@ class Nurl
      * @ORM\Column(name="notes", type="string", length=255)
      */
     private $notes;
+
+    //--------------------------------------------------------------------
+
+    /**
+     * @var int
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     */
+    private $author_id;
+
+    /**
+     * @var int
+     *
+     * @ORM\ManyToOne(targetEntity="Tag")
+     * @ORM\JoinColumn(name="tag", referencedColumnName="id")
+     */
+    private $tag;
+
+    /**
+     * @var int
+     *
+     * @ORM\ManyToOne(targetEntity="NurlCollection", inversedBy="nurls")
+     * @ORM\JoinColumn(name="nurl_collection", referencedColumnName="id")
+     */
+    private $nurl_collection;
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return Nurl
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     *
+     * @return Nurl
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * Set summary
+     *
+     * @param string $summary
+     *
+     * @return Nurl
+     */
+    public function setSummary($summary)
+    {
+        $this->summary = $summary;
+
+        return $this;
+    }
+
+    /**
+     * Get summary
+     *
+     * @return string
+     */
+    public function getSummary()
+    {
+        return $this->summary;
+    }
+
+    /**
+     * Set public
+     *
+     * @param boolean $public
+     *
+     * @return Nurl
+     */
+    public function setPublic($public)
+    {
+        $this->public = $public;
+
+        return $this;
+    }
+
+    /**
+     * Get public
+     *
+     * @return boolean
+     */
+    public function getPublic()
+    {
+        return $this->public;
+    }
+
+    /**
+     * Set frozen
+     *
+     * @param boolean $frozen
+     *
+     * @return Nurl
+     */
+    public function setFrozen($frozen)
+    {
+        $this->frozen = $frozen;
+
+        return $this;
+    }
+
+    /**
+     * Get frozen
+     *
+     * @return boolean
+     */
+    public function getFrozen()
+    {
+        return $this->frozen;
+    }
+
+    /**
+     * Set notes
+     *
+     * @param string $notes
+     *
+     * @return Nurl
+     */
+    public function setNotes($notes)
+    {
+        $this->notes = $notes;
+
+        return $this;
+    }
+
+    /**
+     * Get notes
+     *
+     * @return string
+     */
+    public function getNotes()
+    {
+        return $this->notes;
+    }
+
+    /**
+     * Set authorId
+     *
+     * @param \AppBundle\Entity\User $authorId
+     *
+     * @return Nurl
+     */
+    public function setAuthorId(\AppBundle\Entity\User $authorId = null)
+    {
+        $this->author_id = $authorId;
+
+        return $this;
+    }
+
+    /**
+     * Get authorId
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getAuthorId()
+    {
+        return $this->author_id;
+    }
+
+    /**
+     * Set tag
+     *
+     * @param \AppBundle\Entity\Tag $tag
+     *
+     * @return Nurl
+     */
+    public function setTag(\AppBundle\Entity\Tag $tag = null)
+    {
+        $this->tag = $tag;
+
+        return $this;
+    }
+
+    /**
+     * Get tag
+     *
+     * @return \AppBundle\Entity\Tag
+     */
+    public function getTag()
+    {
+        return $this->tag;
+    }
+
+    /**
+     * Set nurlCollection
+     *
+     * @param \AppBundle\Entity\NurlCollection $nurlCollection
+     *
+     * @return Nurl
+     */
+    public function setNurlCollection(\AppBundle\Entity\NurlCollection $nurlCollection = null)
+    {
+        $this->nurl_collection = $nurlCollection;
+
+        return $this;
+    }
+
+    /**
+     * Get nurlCollection
+     *
+     * @return \AppBundle\Entity\NurlCollection
+     */
+    public function getNurlCollection()
+    {
+        return $this->nurl_collection;
+    }
 }

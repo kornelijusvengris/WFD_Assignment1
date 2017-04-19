@@ -40,6 +40,18 @@ class User implements UserInterface, \Serializable
      */
     private $frozen;
 
+    //=====================================================
+
+    /**
+     * @ORM\OneToMany(targetEntity="Nurl", mappedBy="author_id")
+     */
+    private $nurls;
+
+    /**
+     * @ORM\OneToMany(targetEntity="NurlCollection", mappedBy="owned_by")
+     */
+    private $collections;
+
     public function __construct()
     {
         $this->isActive = true;
@@ -195,5 +207,73 @@ class User implements UserInterface, \Serializable
     public function getFrozen()
     {
         return $this->frozen;
+    }
+
+    /**
+     * Add nurl
+     *
+     * @param \AppBundle\Entity\Nurl $nurl
+     *
+     * @return User
+     */
+    public function addNurl(\AppBundle\Entity\Nurl $nurl)
+    {
+        $this->nurls[] = $nurl;
+
+        return $this;
+    }
+
+    /**
+     * Remove nurl
+     *
+     * @param \AppBundle\Entity\Nurl $nurl
+     */
+    public function removeNurl(\AppBundle\Entity\Nurl $nurl)
+    {
+        $this->nurls->removeElement($nurl);
+    }
+
+    /**
+     * Get nurls
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getNurls()
+    {
+        return $this->nurls;
+    }
+
+    /**
+     * Add collection
+     *
+     * @param \AppBundle\Entity\NurlCollection $collection
+     *
+     * @return User
+     */
+    public function addCollection(\AppBundle\Entity\NurlCollection $collection)
+    {
+        $this->collections[] = $collection;
+
+        return $this;
+    }
+
+    /**
+     * Remove collection
+     *
+     * @param \AppBundle\Entity\NurlCollection $collection
+     */
+    public function removeCollection(\AppBundle\Entity\NurlCollection $collection)
+    {
+        $this->collections->removeElement($collection);
+    }
+
+    /**
+     * Get collections
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCollections()
+    {
+        return $this->collections;
     }
 }
