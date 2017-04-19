@@ -3,14 +3,19 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Tag;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
+use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Tag controller.
+ * Nurl controller.
  *
  * @Route("tag")
+ * @Security("has_role('ROLE_ADMIN')")
  */
 class TagController extends Controller
 {

@@ -142,4 +142,9 @@ class NurlCollection
     {
         return $this->nurls;
     }
+
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
 }

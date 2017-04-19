@@ -3,14 +3,19 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\NurlCollection;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
+use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Nurlcollection controller.
+ * Nurl controller.
  *
  * @Route("nurlcollection")
+ * @Security("has_role('ROLE_ADMIN')")
  */
 class NurlCollectionController extends Controller
 {

@@ -3,14 +3,19 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\ProposedTag;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
+use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Proposedtag controller.
+ * Nurl controller.
  *
  * @Route("proposedtag")
+ * @Security("has_role('ROLE_ADMIN')")
  */
 class ProposedTagController extends Controller
 {
