@@ -6,11 +6,34 @@
 
         <style>
             @import '/css/flash.css';
+            @import '/css/nav.css';
+            @import '/css/login_information.css';
         </style>
 
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+
+    <nav>
+        <ul class="nav_bar">
+            <li><a href="{{ path('homepage') }}">Return to Home Page</a></li>
+            <li><a href="{{ path('nurl_index') }}">View NURLs</a></li>
+            <li><a href="{{ path('nurlcollection_index') }}">View NURL Collection</a></li>
+            <li><a href="{{ path('tag_index') }}">View Tags</a></li>
+        </ul>
+    </nav>
+
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <div class="login_information">
+        You have logged in as: {{ app.user.username }}
+        <a href="{{ path('logout') }}">Logout</a>
+    </div>
+
+    {% else %}
+        <p class="login_information">
+            You are not logged in: <a href="{{ path('login') }}">Login</a>
+        </p>
+    {% endif %}
 
     <hr>
         {% block body %}
