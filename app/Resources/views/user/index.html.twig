@@ -3,6 +3,7 @@
 {% block body %}
     <h1>Users list</h1>
 
+    {% if users %}
     <table>
         <thead>
             <tr>
@@ -42,6 +43,9 @@
         {% endfor %}
         </tbody>
     </table>
+    {% else %}
+        Nothing to display.
+    {% endif %}
 
     <ul>
         <li>

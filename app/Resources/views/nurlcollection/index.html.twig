@@ -3,6 +3,7 @@
 {% block body %}
     <h1>Nurlcollections list</h1>
 
+    {% if nurlCollections %}
     <table>
         <thead>
             <tr>
@@ -30,6 +31,9 @@
         {% endfor %}
         </tbody>
     </table>
+    {% else %}
+        Nothing to display.
+    {% endif %}
 
     <ul>
         <li>

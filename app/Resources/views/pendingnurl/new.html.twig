@@ -4,13 +4,16 @@
     <h1>Pendingnurl creation</h1>
 
     {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+
+    <div class="form-field">
+        {{ form_row(form.approved) }}
+        {{ form_row(form.nurl) }}
+    </div>
+
+    <div>
+        <button><a href="{{ path('pendingnurl_index') }}">Back to the List</a></button> | <input type="submit" value="Create" />
+    </div>
+
     {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('pendingnurl_index') }}">Back to the list</a>
-        </li>
-    </ul>
 {% endblock %}

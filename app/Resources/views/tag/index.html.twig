@@ -3,6 +3,7 @@
 {% block body %}
     <h1>Tags list</h1>
 
+    {% if tags %}
     <table>
         <thead>
             <tr>
@@ -32,6 +33,9 @@
         {% endfor %}
         </tbody>
     </table>
+    {% else %}
+        Nothing to display.
+    {% endif %}
 
     <ul>
         <li>

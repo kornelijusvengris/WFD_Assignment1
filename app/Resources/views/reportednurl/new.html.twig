@@ -4,13 +4,17 @@
     <h1>Reportednurl creation</h1>
 
     {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+
+    <div class="form-field">
+        {{ form_row(form.reason) }}
+        {{ form_row(form.frozen) }}
+        {{ form_row(form.nurl) }}
+    </div>
+
+    <div>
+        <button><a href="{{ path('reportednurl_index') }}">Back to the List</a></button> | <input type="submit" value="Create" />
+    </div>
+
     {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('reportednurl_index') }}">Back to the list</a>
-        </li>
-    </ul>
 {% endblock %}

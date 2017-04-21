@@ -3,6 +3,7 @@
 {% block body %}
     <h1>Nurls list</h1>
 
+    {% if nurls %}
     <table>
         <thead>
             <tr>
@@ -40,6 +41,9 @@
         {% endfor %}
         </tbody>
     </table>
+    {% else %}
+    Nothing to display.
+    {% endif %}
 
     <ul>
         <li>

@@ -4,13 +4,26 @@
     <h1>Nurl creation</h1>
 
     {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+
+    <div class="form-field">
+            {{ form_row(form.title) }}
+            {{ form_row(form.content) }}
+            {{ form_row(form.summary) }}
+            {{ form_row(form.notes) }}
+            {{ form_row(form.tag) }}
+
+          <div class="hide">
+            {{ form_row(form.public) }}
+            {{ form_row(form.frozen) }}
+            {{ form_row(form.author_id) }}
+            {{ form_row(form.nurl_collection) }}
+          </div>
+    </div>
+
+    <div>
+        <button><a href="{{ path('nurl_index') }}">Back to the List</a></button> | <input type="submit" value="Create" />
+    </div>
+
     {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('nurl_index') }}">Back to the list</a>
-        </li>
-    </ul>
 {% endblock %}
